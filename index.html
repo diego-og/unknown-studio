@@ -1,0 +1,758 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Unknown — Agencia Integral</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --black: #0a0a0a;
+      --white: #f5f2ed;
+      --accent: #e8ff47;
+      --gray: #888;
+      --border: rgba(245,242,237,0.12);
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--black);
+      color: var(--white);
+      font-family: 'DM Sans', sans-serif;
+      font-weight: 300;
+      overflow-x: hidden;
+    }
+
+    /* GRAIN */
+    body::before {
+      content: '';
+      position: fixed; inset: 0;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
+      pointer-events: none;
+      z-index: 100;
+      opacity: 0.6;
+    }
+
+    /* NAV */
+    nav {
+      position: fixed; top: 0; left: 0; right: 0;
+      z-index: 50;
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 1.5rem 2.5rem;
+      border-bottom: 1px solid var(--border);
+      backdrop-filter: blur(12px);
+      background: rgba(10,10,10,0.7);
+      animation: fadeDown 0.8s ease both;
+    }
+    @keyframes fadeDown {
+      from { opacity: 0; transform: translateY(-20px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+    .nav-logo {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 1.6rem;
+      letter-spacing: 0.15em;
+      color: var(--white);
+      text-decoration: none;
+    }
+    .nav-logo img { height: 32px; width: auto; display: block; }
+    .nav-links { display: flex; gap: 2rem; list-style: none; }
+    .nav-links a {
+      color: rgba(245,242,237,0.55);
+      text-decoration: none;
+      font-size: 0.82rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      transition: color 0.2s;
+    }
+    .nav-links a:hover { color: var(--white); }
+    .nav-cta {
+      background: var(--accent);
+      color: var(--black);
+      border: none;
+      padding: 0.55rem 1.4rem;
+      font-family: 'DM Sans', sans-serif;
+      font-size: 0.82rem;
+      font-weight: 500;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      cursor: pointer;
+      transition: background 0.2s, transform 0.15s;
+    }
+    .nav-cta:hover { background: #d4f000; transform: scale(1.03); }
+
+    /* HERO */
+    .hero {
+      min-height: 100vh;
+      display: flex; flex-direction: column;
+      justify-content: flex-end;
+      padding: 0 4rem 5rem;
+      position: relative;
+      overflow: hidden;
+    }
+    .hero-bg {
+      position: absolute; inset: 0;
+      background:
+        radial-gradient(ellipse 80% 60% at 70% 40%, rgba(232,255,71,0.06) 0%, transparent 60%),
+        radial-gradient(ellipse 50% 50% at 20% 80%, rgba(255,77,46,0.05) 0%, transparent 50%);
+      animation: bgPulse 8s ease-in-out infinite alternate;
+    }
+    @keyframes bgPulse {
+      from { opacity: 0.8; } to { opacity: 1; }
+    }
+    .hero-grid {
+      position: absolute; inset: 0;
+      background-image:
+        linear-gradient(rgba(245,242,237,0.03) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(245,242,237,0.03) 1px, transparent 1px);
+      background-size: 80px 80px;
+      pointer-events: none;
+    }
+    .hero-tag {
+      display: inline-flex; align-items: center; gap: 0.5rem;
+      border: 1px solid var(--border);
+      padding: 0.35rem 0.9rem;
+      font-size: 0.72rem;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--gray);
+      margin-bottom: 2rem;
+      width: fit-content;
+      animation: fadeUp 1s 0.2s ease both;
+      position: relative; z-index: 2;
+    }
+    .hero-tag::before {
+      content: '';
+      width: 6px; height: 6px;
+      background: var(--accent);
+      border-radius: 50%;
+    }
+    .hero-headline {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: clamp(4rem, 9vw, 9rem);
+      line-height: 0.92;
+      letter-spacing: -0.01em;
+      animation: fadeUp 1s 0.4s ease both;
+      position: relative; z-index: 2;
+    }
+    .hero-headline .outline {
+      display: block;
+      -webkit-text-stroke: 1px rgba(245,242,237,0.25);
+      color: transparent;
+    }
+    .hero-bottom {
+      display: flex; align-items: flex-end; justify-content: space-between;
+      margin-top: 3rem;
+      animation: fadeUp 1s 0.6s ease both;
+      position: relative; z-index: 2;
+      gap: 2rem; flex-wrap: wrap;
+    }
+    .hero-desc {
+      max-width: 340px;
+      font-size: 1rem; line-height: 1.65;
+      color: rgba(245,242,237,0.55);
+    }
+    .hero-desc strong { color: var(--white); font-weight: 400; }
+    .hero-actions { display: flex; gap: 1rem; align-items: center; }
+    .btn-primary {
+      background: var(--accent); color: var(--black);
+      border: none; padding: 1rem 2.2rem;
+      font-family: 'DM Sans', sans-serif; font-weight: 500;
+      font-size: 0.9rem; letter-spacing: 0.06em; text-transform: uppercase;
+      text-decoration: none; cursor: pointer;
+      transition: background 0.2s, transform 0.15s; display: inline-block;
+    }
+    .btn-primary:hover { background: #d4f000; transform: translateY(-2px); }
+    .btn-ghost {
+      color: rgba(245,242,237,0.6); border: 1px solid var(--border);
+      padding: 1rem 2.2rem; font-size: 0.9rem; letter-spacing: 0.06em;
+      text-transform: uppercase; text-decoration: none; cursor: pointer;
+      transition: color 0.2s, border-color 0.2s, transform 0.15s; display: inline-block;
+    }
+    .btn-ghost:hover { color: var(--white); border-color: rgba(245,242,237,0.4); transform: translateY(-2px); }
+    .hero-scroll {
+      display: flex; align-items: center; gap: 0.6rem;
+      font-size: 0.72rem; letter-spacing: 0.15em; text-transform: uppercase;
+      color: var(--gray); animation: bounce 2s 2s ease-in-out infinite;
+    }
+    @keyframes bounce { 0%,100% { transform: translateY(0); } 50% { transform: translateY(6px); } }
+    .hero-scroll::before { content: '↓'; font-size: 1.2rem; color: var(--accent); }
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(30px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    /* LOGOS STRIP */
+    .logos-wrap {
+      border-top: 1px solid var(--border); border-bottom: 1px solid var(--border);
+      overflow: hidden; padding: 2rem 0;
+      background: rgba(232,255,71,0.02);
+      -webkit-mask-image: linear-gradient(to right, transparent 0%, black 12%, black 88%, transparent 100%);
+      mask-image: linear-gradient(to right, transparent 0%, black 12%, black 88%, transparent 100%);
+    }
+    .logos-track {
+      display: flex; align-items: center; gap: 0;
+      animation: marquee 30s linear infinite;
+      width: max-content;
+    }
+    .logos-wrap:hover .logos-track { animation-play-state: paused; }
+    .logo-item {
+      display: flex; align-items: center; justify-content: center;
+      padding: 0 3rem; flex-shrink: 0;
+      border-right: 1px solid var(--border);
+    }
+    .logo-item img {
+      height: 28px; width: auto;
+      filter: brightness(0) invert(1) opacity(0.25);
+      transition: filter 0.3s ease;
+    }
+    .logo-item:hover img { filter: brightness(0) invert(1) opacity(0.9); }
+    @keyframes marquee { from { transform: translateX(0); } to { transform: translateX(-50%); } }
+
+    /* SECTIONS */
+    .section { padding: 7rem 4rem; }
+    .section-label { font-size: 0.72rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--accent); margin-bottom: 1rem; }
+    .section-title {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: clamp(2rem, 3.5vw, 3.5rem);
+      line-height: 1; letter-spacing: 0.02em; margin-bottom: 4rem;
+    }
+    .section-title em { font-style: normal; -webkit-text-stroke: 1px rgba(245,242,237,0.3); color: transparent; }
+
+    /* SERVICES */
+    .services-grid {
+      display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 1px; background: var(--border); border: 1px solid var(--border);
+    }
+    .service-card {
+      background: var(--black); padding: 2.5rem;
+      position: relative; overflow: hidden; transition: background 0.3s;
+    }
+    .service-card::before {
+      content: ''; position: absolute; inset: 0;
+      background: linear-gradient(135deg, rgba(232,255,71,0.04), transparent);
+      opacity: 0; transition: opacity 0.3s;
+    }
+    .service-card:hover { background: #111; }
+    .service-card:hover::before { opacity: 1; }
+    .service-num {
+      font-family: 'Bebas Neue', sans-serif; font-size: 4rem; line-height: 1;
+      color: rgba(245,242,237,0.06); margin-bottom: 1.5rem; transition: color 0.3s;
+    }
+    .service-card:hover .service-num { color: rgba(232,255,71,0.15); }
+    .service-icon { font-size: 1.8rem; margin-bottom: 1rem; }
+    .service-name { font-family: 'Bebas Neue', sans-serif; font-size: 1.6rem; letter-spacing: 0.05em; margin-bottom: 0.8rem; }
+    .service-desc { font-size: 0.88rem; line-height: 1.6; color: rgba(245,242,237,0.5); }
+    .service-tag {
+      display: inline-block; margin-top: 1.5rem;
+      font-size: 0.7rem; letter-spacing: 0.12em; text-transform: uppercase;
+      color: var(--accent); border: 1px solid rgba(232,255,71,0.3); padding: 0.25rem 0.7rem;
+    }
+
+    /* STATS */
+    .stats-section {
+      padding: 5rem 2.5rem;
+      border-top: 1px solid var(--border); border-bottom: 1px solid var(--border);
+      display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 3rem;
+    }
+    .stat { text-align: center; }
+    .stat-num {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: clamp(3rem, 6vw, 5.5rem);
+      line-height: 1; color: var(--accent); display: block;
+    }
+    .stat-label { font-size: 0.8rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--gray); margin-top: 0.5rem; }
+
+    /* WORK */
+    .work-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; }
+    .work-card {
+      aspect-ratio: 4/3; position: relative; overflow: hidden;
+      background: #111; cursor: pointer;
+    }
+    .work-card-bg { position: absolute; inset: 0; transition: transform 0.6s ease; }
+    .work-card:hover .work-card-bg { transform: scale(1.05); }
+    .wc1 { background: linear-gradient(135deg, #1a1a2e, #16213e, #0f3460); }
+    .wc2 { background: linear-gradient(135deg, #1a0a00, #3d1a00, #7a3200); }
+    .wc3 { background: linear-gradient(135deg, #0a1a0a, #0d2e0d, #1a5c1a); }
+    .wc4 { background: linear-gradient(135deg, #1a001a, #2e002e, #5c005c); }
+    .wc5 { background: linear-gradient(135deg, #1a1200, #2e2000, #5c4000); }
+    .wc6 { background: linear-gradient(135deg, #0a0a1a, #12121a, #1e1e2e); }
+    .work-info {
+      position: absolute; bottom: 0; left: 0; right: 0; padding: 1.8rem;
+      background: linear-gradient(to top, rgba(0,0,0,0.85), transparent);
+    }
+    .work-category { font-size: 0.7rem; letter-spacing: 0.15em; text-transform: uppercase; color: var(--accent); margin-bottom: 0.4rem; }
+    .work-title { font-family: 'Bebas Neue', sans-serif; font-size: 1.5rem; letter-spacing: 0.05em; }
+    .work-overlay {
+      position: absolute; inset: 0; background: rgba(232,255,71,0.05);
+      opacity: 0; transition: opacity 0.3s;
+      display: flex; align-items: center; justify-content: center;
+    }
+    .work-card:hover .work-overlay { opacity: 1; }
+    .work-overlay span {
+      border: 1px solid var(--accent); color: var(--accent);
+      padding: 0.6rem 1.4rem; font-size: 0.78rem; letter-spacing: 0.12em;
+      text-transform: uppercase; transform: translateY(10px); transition: transform 0.3s;
+    }
+    .work-card:hover .work-overlay span { transform: translateY(0); }
+
+    /* PROCESS */
+    .process-list { display: flex; flex-direction: column; }
+    .process-item {
+      display: grid; grid-template-columns: 80px 1fr auto;
+      align-items: center; gap: 2rem;
+      padding: 2.2rem 0; border-bottom: 1px solid var(--border); transition: background 0.2s;
+    }
+    .process-item:hover { background: rgba(245,242,237,0.02); }
+    .process-num { font-family: 'Bebas Neue', sans-serif; font-size: 3rem; color: rgba(245,242,237,0.08); text-align: right; transition: color 0.3s; }
+    .process-item:hover .process-num { color: rgba(232,255,71,0.2); }
+    .process-name { font-family: 'Bebas Neue', sans-serif; font-size: 1.8rem; letter-spacing: 0.05em; }
+    .process-detail { font-size: 0.85rem; color: var(--gray); max-width: 280px; text-align: right; }
+
+    /* CTA */
+    .cta-section { padding: 8rem 2.5rem; text-align: center; position: relative; overflow: hidden; }
+    .cta-section::before {
+      content: 'UNKNOWN'; position: absolute;
+      font-family: 'Bebas Neue', sans-serif; font-size: 30vw;
+      color: rgba(245,242,237,0.02); top: 50%; left: 50%;
+      transform: translate(-50%, -50%); white-space: nowrap; pointer-events: none;
+    }
+    .cta-label { font-size: 0.72rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--gray); margin-bottom: 1.5rem; }
+    .cta-headline { font-family: 'Bebas Neue', sans-serif; font-size: clamp(3rem, 8vw, 7rem); line-height: 0.95; margin-bottom: 2.5rem; }
+    .cta-headline .ghost { -webkit-text-stroke: 1px rgba(245,242,237,0.25); color: transparent; }
+    .cta-sub { max-width: 480px; margin: 0 auto 3rem; color: rgba(245,242,237,0.5); font-size: 1rem; line-height: 1.7; }
+    .cta-email {
+      font-family: 'Bebas Neue', sans-serif; font-size: 1.4rem; letter-spacing: 0.1em;
+      color: var(--accent); text-decoration: none;
+      border-bottom: 1px solid rgba(232,255,71,0.3); padding-bottom: 0.2rem; transition: border-color 0.2s;
+    }
+    .cta-email:hover { border-color: var(--accent); }
+
+    /* FOOTER */
+    footer { border-top: 1px solid var(--border); padding: 3rem 2.5rem; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 1.5rem; }
+    .footer-logo img { height: 24px; width: auto; opacity: 0.4; }
+    .footer-copy { font-size: 0.78rem; color: rgba(245,242,237,0.25); }
+    .footer-social { display: flex; gap: 1.5rem; }
+    .footer-social a { font-size: 0.75rem; letter-spacing: 0.1em; text-transform: uppercase; color: rgba(245,242,237,0.35); text-decoration: none; transition: color 0.2s; }
+    .footer-social a:hover { color: var(--accent); }
+
+    /* MODAL */
+    .modal-backdrop {
+      position: fixed; inset: 0;
+      background: rgba(0,0,0,0.88); backdrop-filter: blur(8px);
+      z-index: 500; display: flex; align-items: center; justify-content: center;
+      padding: 1.5rem; opacity: 0; pointer-events: none; transition: opacity 0.3s ease;
+    }
+    .modal-backdrop.open { opacity: 1; pointer-events: all; }
+    .modal {
+      background: #111; border: 1px solid var(--border);
+      max-width: 860px; width: 100%; max-height: 90vh; overflow-y: auto;
+      position: relative; transform: translateY(30px) scale(0.97); transition: transform 0.3s ease;
+    }
+    .modal-backdrop.open .modal { transform: translateY(0) scale(1); }
+    .modal-hero { width: 100%; height: 300px; position: relative; overflow: hidden; }
+    .modal-hero-bg { position: absolute; inset: 0; transition: transform 0.6s ease; }
+    .modal:hover .modal-hero-bg { transform: scale(1.04); }
+    .modal-close {
+      position: absolute; top: 1rem; right: 1rem;
+      width: 40px; height: 40px; border: 1px solid var(--border);
+      background: rgba(10,10,10,0.85); color: var(--white);
+      font-size: 1rem; display: flex; align-items: center; justify-content: center;
+      cursor: pointer; transition: background 0.2s; z-index: 10;
+    }
+    .modal-close:hover { background: var(--accent); color: var(--black); }
+    .modal-body { padding: 2.5rem; }
+    .modal-category { font-size: 0.72rem; letter-spacing: 0.18em; text-transform: uppercase; color: var(--accent); margin-bottom: 0.5rem; }
+    .modal-title { font-family: 'Bebas Neue', sans-serif; font-size: clamp(2rem, 5vw, 3rem); line-height: 1; margin-bottom: 1.5rem; }
+    .modal-desc { font-size: 0.95rem; line-height: 1.75; color: rgba(245,242,237,0.6); margin-bottom: 2rem; max-width: 600px; }
+    .modal-tags { display: flex; flex-wrap: wrap; gap: 0.5rem; margin-bottom: 2.5rem; }
+    .modal-tag { font-size: 0.72rem; letter-spacing: 0.1em; text-transform: uppercase; border: 1px solid var(--border); padding: 0.3rem 0.8rem; color: rgba(245,242,237,0.5); }
+    .modal-results { display: grid; grid-template-columns: repeat(3,1fr); gap: 1px; background: var(--border); border: 1px solid var(--border); margin-bottom: 2.5rem; }
+    .modal-result { background: #0a0a0a; padding: 1.5rem; text-align: center; }
+    .modal-result-num { font-family: 'Bebas Neue', sans-serif; font-size: 2.2rem; color: var(--accent); display: block; }
+    .modal-result-label { font-size: 0.72rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--gray); margin-top: 0.3rem; }
+
+    /* REVEAL */
+    .reveal { opacity: 1; transform: translateY(0); transition: opacity 0.8s ease, transform 0.8s ease; }
+    .reveal.animate { opacity: 0; transform: translateY(40px); }
+    .reveal.animate.visible { opacity: 1; transform: translateY(0); }
+
+    /* MOBILE */
+    @media (max-width: 768px) {
+      nav { padding: 1.2rem 1.5rem; }
+      .nav-links { display: none; }
+      .hero { padding: 0 1.5rem 4rem; }
+      .section { padding: 5rem 1.5rem; }
+      .work-grid { grid-template-columns: 1fr; }
+      .work-card:first-child { min-height: 300px; }
+      .process-item { grid-template-columns: 50px 1fr; }
+      .process-detail { display: none; }
+      .hero-bottom { flex-direction: column; align-items: flex-start; }
+      footer { flex-direction: column; text-align: center; }
+      .stats-section { grid-template-columns: repeat(2,1fr); }
+      .modal-results { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- NAV -->
+  <nav>
+    <a href="#" class="nav-logo"><img src="assets/logo.webp" alt="Unknown Studio"></a>
+    <ul class="nav-links">
+      <li><a href="#servicios">Servicios</a></li>
+      <li><a href="#trabajo">Trabajo</a></li>
+      <li><a href="#proceso">Proceso</a></li>
+      <li><a href="#contacto">Contacto</a></li>
+    </ul>
+    <button class="nav-cta" onclick="document.getElementById('contacto').scrollIntoView({behavior:'smooth'})">Hablemos</button>
+  </nav>
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="hero-bg"></div>
+    <div class="hero-grid"></div>
+    <div class="hero-tag">Agencia Integral · México · 2024</div>
+    <h1 class="hero-headline">
+      WE ARE<br>
+      <span class="outline">UNKNOWN</span>
+    </h1>
+    <div class="hero-bottom">
+      <p class="hero-desc">
+        Somos la agencia que convierte tu <strong>visión</strong> en resultados reales. Marketing, video, desarrollo web y estrategia digital — <strong>todo bajo un mismo techo.</strong>
+      </p>
+      <div class="hero-actions">
+        <a href="#trabajo" class="btn-primary">Ver trabajo</a>
+        <a href="#servicios" class="btn-ghost">Servicios</a>
+      </div>
+      <div class="hero-scroll">Scroll</div>
+    </div>
+  </section>
+
+  <!-- MARQUEE -->
+  <div class="logos-wrap">
+    <div class="logos-track">
+      <div class="logo-item"><img src="assets/logos/crep-protect.png" alt="Crep Protect"></div>
+      <div class="logo-item"><img src="assets/logos/club-america.png" alt="Club América"></div>
+      <div class="logo-item"><img src="assets/logos/fifa.png" alt="FIFA"></div>
+      <div class="logo-item"><img src="assets/logos/adidas.png" alt="Adidas"></div>
+      <div class="logo-item"><img src="assets/logos/puma.png" alt="Puma"></div>
+      <div class="logo-item"><img src="assets/logos/new-balance.png" alt="New Balance"></div>
+      <div class="logo-item"><img src="assets/logos/crocs.png" alt="Crocs"></div>
+      <div class="logo-item"><img src="assets/logos/stush.png" alt="Stush"></div>
+      <div class="logo-item"><img src="assets/logos/lilo-lily.png" alt="Lilo & Lily"></div>
+      <!-- Duplicate for seamless loop -->
+      <div class="logo-item"><img src="assets/logos/crep-protect.png" alt="Crep Protect"></div>
+      <div class="logo-item"><img src="assets/logos/club-america.png" alt="Club América"></div>
+      <div class="logo-item"><img src="assets/logos/fifa.png" alt="FIFA"></div>
+      <div class="logo-item"><img src="assets/logos/adidas.png" alt="Adidas"></div>
+      <div class="logo-item"><img src="assets/logos/puma.png" alt="Puma"></div>
+      <div class="logo-item"><img src="assets/logos/new-balance.png" alt="New Balance"></div>
+      <div class="logo-item"><img src="assets/logos/crocs.png" alt="Crocs"></div>
+      <div class="logo-item"><img src="assets/logos/stush.png" alt="Stush"></div>
+      <div class="logo-item"><img src="assets/logos/lilo-lily.png" alt="Lilo & Lily"></div>
+    </div>
+  </div>
+
+  <!-- SERVICES -->
+  <section class="section" id="servicios">
+    <div class="section-label reveal">Lo que hacemos</div>
+    <h2 class="section-title reveal">Servicios <em>Integrales</em></h2>
+    <div class="services-grid reveal">
+      <div class="service-card">
+        <div class="service-num">01</div>
+        <div class="service-icon">📱</div>
+        <div class="service-name">Marketing Digital</div>
+        <p class="service-desc">Estrategias data-driven que conectan tu marca con la audiencia correcta en el momento correcto.</p>
+        <span class="service-tag">SEO · SEM · Social Ads</span>
+      </div>
+      <div class="service-card">
+        <div class="service-num">02</div>
+        <div class="service-icon">🎬</div>
+        <div class="service-name">Producción Audiovisual</div>
+        <p class="service-desc">Video production de alta calidad: spots, contenido para redes, cobertura de eventos, podcast y más.</p>
+        <span class="service-tag">Video · Foto · Podcast</span>
+      </div>
+      <div class="service-card">
+        <div class="service-num">03</div>
+        <div class="service-icon">💻</div>
+        <div class="service-name">Desarrollo Web</div>
+        <p class="service-desc">Sitios y aplicaciones web que no solo se ven increíbles — también convierten y escalan.</p>
+        <span class="service-tag">Web · App · E-commerce</span>
+      </div>
+      <div class="service-card">
+        <div class="service-num">04</div>
+        <div class="service-icon">✦</div>
+        <div class="service-name">Identidad & Marca</div>
+        <p class="service-desc">Creamos marcas con personalidad: naming, logotipo, sistema visual y guía de estilo completa.</p>
+        <span class="service-tag">Brand · UI · Motion</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- STATS -->
+  <div class="stats-section" id="statsSection">
+    <div class="stat">
+      <span class="stat-num" data-target="120">0</span>
+      <span class="stat-label">Proyectos entregados</span>
+    </div>
+    <div class="stat">
+      <span class="stat-num" data-target="48">0</span>
+      <span class="stat-label">Clientes activos</span>
+    </div>
+    <div class="stat">
+      <span class="stat-num" data-target="6">0</span>
+      <span class="stat-label">Años de experiencia</span>
+    </div>
+    <div class="stat">
+      <span class="stat-num" data-target="98">0</span>
+      <span class="stat-label">% satisfacción</span>
+    </div>
+  </div>
+
+  <!-- WORK -->
+  <section class="section" id="trabajo">
+    <div class="section-label reveal">Portfolio</div>
+    <h2 class="section-title reveal">Trabajo <em>Selecto</em></h2>
+    <div class="work-grid reveal">
+      <div class="work-card" onclick="window.openModal('p1')">
+        <div class="work-card-bg wc1"></div>
+        <img src="assets/crep-protect.jpg" alt="Crep Protect" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:.7;transition:transform .6s ease;" onerror="this.style.display='none'">
+        <div class="work-overlay"><span>Ver proyecto →</span></div>
+        <div class="work-info">
+          <div class="work-category">Dirección Creativa · Marketing</div>
+          <div class="work-title">Crep Protect</div>
+        </div>
+      </div>
+      <div class="work-card" onclick="window.openModal('p2')">
+        <div class="work-card-bg wc2"></div>
+        <img src="assets/club-america.jpg" alt="Club América" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:.7;transition:transform .6s ease;" onerror="this.style.display='none'">
+        <div class="work-overlay"><span>Ver proyecto →</span></div>
+        <div class="work-info">
+          <div class="work-category">Producción · Podcast</div>
+          <div class="work-title">Club América</div>
+        </div>
+      </div>
+      <div class="work-card" onclick="window.openModal('p3')">
+        <div class="work-card-bg wc3"></div>
+        <img src="assets/lilo-lily.jpg" alt="Lilo & Lily" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:.7;transition:transform .6s ease;" onerror="this.style.display='none'">
+        <div class="work-overlay"><span>Ver proyecto →</span></div>
+        <div class="work-info">
+          <div class="work-category">Branding · Ecommerce · Ads</div>
+          <div class="work-title">Lilo & Lily</div>
+        </div>
+      </div>
+      <div class="work-card" onclick="window.openModal('p4')">
+        <div class="work-card-bg wc4"></div>
+        <img src="assets/stush.jpg" alt="Stush" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:.7;transition:transform .6s ease;" onerror="this.style.display='none'">
+        <div class="work-overlay"><span>Ver proyecto →</span></div>
+        <div class="work-info">
+          <div class="work-category">Agencia · Streetwear</div>
+          <div class="work-title">Stush</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PROCESS -->
+  <section class="section" id="proceso">
+    <div class="section-label reveal">Metodología</div>
+    <h2 class="section-title reveal">Nuestro <em>Proceso</em></h2>
+    <div class="process-list reveal">
+      <div class="process-item">
+        <div class="process-num">01</div>
+        <div class="process-name">Descubrimiento</div>
+        <div class="process-detail">Entendemos tu negocio, objetivos y audiencia a fondo</div>
+      </div>
+      <div class="process-item">
+        <div class="process-num">02</div>
+        <div class="process-name">Estrategia</div>
+        <div class="process-detail">Diseñamos el plan más efectivo para tus metas</div>
+      </div>
+      <div class="process-item">
+        <div class="process-num">03</div>
+        <div class="process-name">Producción</div>
+        <div class="process-detail">Ejecutamos con precisión, creatividad y velocidad</div>
+      </div>
+      <div class="process-item">
+        <div class="process-num">04</div>
+        <div class="process-name">Lanzamiento</div>
+        <div class="process-detail">Publicamos, medimos y optimizamos continuamente</div>
+      </div>
+      <div class="process-item">
+        <div class="process-num">05</div>
+        <div class="process-name">Crecimiento</div>
+        <div class="process-detail">Escala sostenida con datos y mejora continua</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section class="cta-section" id="contacto">
+    <div class="cta-label reveal">¿Listo para empezar?</div>
+    <h2 class="cta-headline reveal">Hagamos algo<br><span class="ghost">memorable.</span></h2>
+    <p class="cta-sub reveal">Tu proyecto merece una agencia que entienda tanto la estrategia como la ejecución. Cuéntanos qué tienes en mente.</p>
+    <a href="mailto:hola@unknown.com.mx" class="cta-email reveal">hola@unknown.com.mx</a>
+    <br><br>
+    <a href="mailto:hola@unknown.com.mx" class="btn-primary reveal" style="margin-top:2rem">Iniciar proyecto →</a>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="footer-logo"><img src="assets/logo.webp" alt="Unknown Studio"></div>
+    <div class="footer-copy">© 2025 Unknown Agency. Ciudad de México.</div>
+    <div class="footer-social">
+      <a href="#">Instagram</a>
+      <a href="#">LinkedIn</a>
+      <a href="#">Behance</a>
+    </div>
+  </footer>
+
+  <!-- MODAL -->
+  <div class="modal-backdrop" id="modalBackdrop">
+    <div class="modal" id="modalBox">
+      <button class="modal-close" id="modalClose">✕</button>
+      <div class="modal-hero">
+        <div class="modal-hero-bg" id="modalBg"></div>
+      </div>
+      <div class="modal-body">
+        <div class="modal-category" id="modalCategory"></div>
+        <div class="modal-title" id="modalTitle"></div>
+        <p class="modal-desc" id="modalDesc"></p>
+        <div class="modal-tags" id="modalTags"></div>
+        <div class="modal-results" id="modalResults"></div>
+        <a href="#contacto" class="btn-primary" id="modalCta">Quiero algo así →</a>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // SCROLL REVEAL
+    const revObs = new IntersectionObserver((entries) => {
+      entries.forEach((e, i) => {
+        if (e.isIntersecting) {
+          setTimeout(() => e.target.classList.add('visible'), i * 80);
+          revObs.unobserve(e.target);
+        }
+      });
+    }, { threshold: 0.1 });
+    document.querySelectorAll('.reveal').forEach(el => {
+      el.classList.add('animate');
+      revObs.observe(el);
+    });
+
+    // COUNTERS
+    function animCounter(el) {
+      const target = +el.dataset.target;
+      const start  = performance.now();
+      (function tick(now) {
+        const p = Math.min((now - start) / 2000, 1);
+        const e = 1 - Math.pow(1 - p, 3);
+        el.textContent = Math.round(e * target);
+        if (p < 1) requestAnimationFrame(tick);
+        else el.textContent = target + (el.dataset.target === '98' ? '%' : '+');
+      })(start);
+    }
+    const statsEl = document.getElementById('statsSection');
+    let countersFired = false;
+    const counterObs = new IntersectionObserver(entries => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting && !countersFired) {
+          countersFired = true;
+          entry.target.querySelectorAll('[data-target]').forEach(animCounter);
+        }
+      });
+    }, { threshold: 0.05 });
+    if (statsEl) counterObs.observe(statsEl);
+
+    // MODAL DATA
+    const projects = {
+      p1: {
+        category: 'Dirección Creativa · Marketing',
+        title: 'Crep Protect',
+        desc: 'Operaciones creativas y de marketing a nivel LATAM para la marca líder en cuidado de calzado. Dirección creativa integral, producción de contenido y estrategia de marca para toda la región.',
+        bg: 'linear-gradient(135deg, #1a1a2e, #16213e, #0f3460)',
+        tags: ['Dir. Creativa', 'Marketing', 'LATAM', 'Contenido'],
+        results: [
+          { num: 'LATAM', label: 'Alcance regional' },
+          { num: '#1',    label: 'Marca en su categoría' },
+          { num: '360°',  label: 'Gestión integral' }
+        ]
+      },
+      p2: {
+        category: 'Producción · Podcast',
+        title: 'Club América',
+        desc: 'Producción de contenido digital y podcast para uno de los clubes de fútbol más grandes de México. Grabación, edición, distribución y estrategia de contenido para sus plataformas digitales.',
+        bg: 'linear-gradient(135deg, #1a0a00, #3d1a00, #7a3200)',
+        tags: ['Producción', 'Podcast', 'Contenido', 'Digital'],
+        results: [
+          { num: 'MX',   label: 'Alcance nacional' },
+          { num: '100%', label: 'Producción propia' },
+          { num: 'Top',  label: 'Club más grande MX' }
+        ]
+      },
+      p3: {
+        category: 'Branding · Ecommerce · Ads',
+        title: 'Lilo & Lily',
+        desc: 'Proyecto integral desde branding hasta Shopify con POS físico y campañas de Meta Ads. Desarrollo de identidad visual, tienda en línea, sistema de punto de venta y estrategia publicitaria en CDMX.',
+        bg: 'linear-gradient(135deg, #0a1a0a, #0d2e0d, #1a5c1a)',
+        tags: ['Branding', 'Shopify', 'Meta Ads', 'POS', 'CDMX'],
+        results: [
+          { num: '1',    label: 'Ecosistema completo' },
+          { num: 'POS',  label: 'Punto de venta físico' },
+          { num: 'Ads',  label: 'Campañas activas' }
+        ]
+      },
+      p4: {
+        category: 'Agencia · Streetwear',
+        title: 'Stush',
+        desc: 'Gestión integral para tienda de streetwear con campañas para marcas como Adidas, Puma, New Balance y Crocs. Estrategia de contenido, producción visual y activaciones de marca.',
+        bg: 'linear-gradient(135deg, #1a001a, #2e002e, #5c005c)',
+        tags: ['Adidas', 'Puma', 'New Balance', 'Crocs', 'Streetwear'],
+        results: [
+          { num: '4+',   label: 'Marcas gestionadas' },
+          { num: '360°', label: 'Gestión integral' },
+          { num: 'MX',   label: 'Mercado principal' }
+        ]
+      }
+    };
+
+    // MODAL LOGIC
+    const backdrop = document.getElementById('modalBackdrop');
+
+    window.openModal = function(id) {
+      const p = projects[id];
+      if (!p) return;
+      document.getElementById('modalBg').style.background  = p.bg;
+      document.getElementById('modalCategory').textContent = p.category;
+      document.getElementById('modalTitle').textContent    = p.title;
+      document.getElementById('modalDesc').textContent     = p.desc;
+      document.getElementById('modalTags').innerHTML       = p.tags.map(t => `<span class="modal-tag">${t}</span>`).join('');
+      document.getElementById('modalResults').innerHTML    = p.results.map(r =>
+        `<div class="modal-result">
+          <span class="modal-result-num">${r.num}</span>
+          <span class="modal-result-label">${r.label}</span>
+        </div>`).join('');
+      backdrop.classList.add('open');
+      document.body.style.overflow = 'hidden';
+    }
+
+    window.closeModal = function() {
+      backdrop.classList.remove('open');
+      document.body.style.overflow = '';
+    }
+
+    document.getElementById('modalClose').addEventListener('click', window.closeModal);
+    backdrop.addEventListener('click', function(e) {
+      if (e.target === backdrop) window.closeModal();
+    });
+    document.addEventListener('keydown', function(e) {
+      if (e.key === 'Escape') window.closeModal();
+    });
+  </script>
+</body>
+</html>
