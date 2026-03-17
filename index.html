@@ -3,7 +3,118 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Unknown — Agencia Integral</title>
+  <title>Unknown Studio — Agencia Digital CDMX</title>
+  <meta name="description" content="Agencia digital en CDMX. Marketing digital, producción audiovisual, desarrollo web e identidad de marca para empresas que quieren crecer." />
+  <meta name="robots" content="index, follow" />
+  <meta property="og:title" content="Unknown Studio — Agencia Digital CDMX" />
+  <meta property="og:description" content="Agencia digital en CDMX. Marketing digital, producción audiovisual, desarrollo web e identidad de marca." />
+  <meta property="og:url" content="https://unknown.com.mx" />
+  <meta property="og:type" content="website" />
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "ProfessionalService",
+    "name": "Unknown Studio",
+    "url": "https://unknown.com.mx",
+    "logo": "https://unknown.com.mx/assets/logos/logo_unknown_blanco.png",
+    "description": "Agencia digital en Ciudad de México especializada en marketing digital, producción audiovisual, desarrollo web e identidad de marca.",
+    "foundingDate": "2022",
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "Ciudad de México",
+      "addressCountry": "MX"
+    },
+    "contactPoint": {
+      "@type": "ContactPoint",
+      "telephone": "+528148120261",
+      "email": "contacto@unknown.com.mx",
+      "contactType": "customer service"
+    },
+    "sameAs": [
+      "https://www.instagram.com/unknown.cdmx/",
+      "https://www.linkedin.com/company/unknownestudiocreativo/"
+    ],
+    "serviceType": [
+      "Marketing Digital",
+      "Producción Audiovisual",
+      "Desarrollo Web",
+      "Identidad y Marca",
+      "Shopify",
+      "Meta Ads"
+    ],
+    "areaServed": {
+      "@type": "Place",
+      "name": "México"
+    },
+    "hasOfferCatalog": {
+      "@type": "OfferCatalog",
+      "name": "Servicios Unknown Studio",
+      "itemListElement": [
+        {
+          "@type": "Offer",
+          "itemOffered": {
+            "@type": "Service",
+            "name": "Marketing Digital",
+            "description": "Estrategias data-driven que conectan tu marca con la audiencia correcta en el momento correcto."
+          }
+        },
+        {
+          "@type": "Offer",
+          "itemOffered": {
+            "@type": "Service",
+            "name": "Producción Audiovisual",
+            "description": "Video production de alta calidad: spots, contenido para redes, cobertura de eventos, podcast y más."
+          }
+        },
+        {
+          "@type": "Offer",
+          "itemOffered": {
+            "@type": "Service",
+            "name": "Desarrollo Web",
+            "description": "Sitios y aplicaciones web que no solo se ven increíbles — también convierten y escalan."
+          }
+        },
+        {
+          "@type": "Offer",
+          "itemOffered": {
+            "@type": "Service",
+            "name": "Identidad y Marca",
+            "description": "Creamos marcas con personalidad: naming, logotipo, sistema visual y guía de estilo completa."
+          }
+        }
+      ]
+    },
+    "faqPage": {
+      "@type": "FAQPage",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "¿Qué servicios ofrece Unknown Studio?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Unknown Studio ofrece marketing digital, producción audiovisual, desarrollo web, identidad de marca, Shopify y campañas de Meta Ads para empresas en México y LATAM."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "¿Dónde está ubicado Unknown Studio?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Unknown Studio está ubicado en Ciudad de México y trabaja con clientes en toda la región LATAM desde 2022."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "¿Cómo contactar a Unknown Studio?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Puedes contactarnos por email en contacto@unknown.com.mx o por WhatsApp al +52 814 812 0261."
+          }
+        }
+      ]
+    }
+  }
+  </script>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&display=swap" rel="stylesheet">
   <style>
@@ -388,13 +499,20 @@
       .hero { padding: 0 1.5rem 4rem; }
       .section { padding: 5rem 1.5rem; }
       .work-grid { grid-template-columns: 1fr; }
-      .work-card:first-child { min-height: 300px; }
+      .work-card { aspect-ratio: 4/3; }
       .process-item { grid-template-columns: 50px 1fr; }
       .process-detail { display: none; }
       .hero-bottom { flex-direction: column; align-items: flex-start; }
+      .hero-actions { flex-direction: column; align-items: flex-start; width: 100%; }
+      .btn-primary, .btn-ghost { width: 100%; text-align: center; }
       footer { flex-direction: column; text-align: center; }
+      .footer-social { justify-content: center; }
       .stats-section { grid-template-columns: repeat(2,1fr); }
       .modal-results { grid-template-columns: 1fr; }
+      .modal { max-height: 95vh; }
+      .services-grid { grid-template-columns: 1fr; }
+      .cta-section { padding: 5rem 1.5rem; }
+      .logos-wrap { padding: 1.5rem 0; }
     }
   </style>
 </head>
